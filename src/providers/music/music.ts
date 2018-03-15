@@ -12,6 +12,6 @@ export class MusicService {
   constructor(public http: HttpClient) {
   }
   getSongs() {
-    return this.http.get('https://ionic-songhop.herokuapp.com/recommendations');
+    return this.http.get('https://music-scio-demo.herokuapp.com/v1/songs');
   }
 }
