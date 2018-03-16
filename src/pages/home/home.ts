@@ -9,11 +9,14 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-
-  songs:Song[];
-  constructor(public navCtrl: NavController, private songService: MusicService) {
-    this.songService.getSongs().subscribe((data:Song[]) => {
+  ionViewWillLoad() {
+    this.songService.getSongs().subscribe((data: Song[]) => {
       this.songs = data;
     });
+  }
+
+  songs: Song[];
+  constructor(public navCtrl: NavController, private songService: MusicService) {
+
   }
 }

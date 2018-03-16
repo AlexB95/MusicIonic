@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MusicService } from '../providers/music/music';
 import { HttpClientModule } from '@angular/common/http';
+import { Media } from '@ionic-native/media';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     StatusBar,
+    Media,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MusicService

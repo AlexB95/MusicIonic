@@ -14,7 +14,17 @@
 
 
 <ion-content padding>
-
-    <ion-content overflow-scroll="true">
-      <iframe [src]="preview_url"></iframe>
-    </ion-content>
+  <ion-card>
+    <img [src]="song.image_large" />
+    <ion-card-content text-center>
+      <ion-card-title>
+        {{song.title}}
+      </ion-card-title>
+      <label>{{(time < 10)? ('00:0' + time + '/00:30'): ('00:' + time + '/00:30')}}</label>
+      <progress-bar [progress]="loadProgress"></progress-bar>
+      <button ion-button round (click)="playPauseSong()">
+        <ion-icon [md]="playPause"></ion-icon>
+      </button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

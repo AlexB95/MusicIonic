@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Music List
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,8 +14,9 @@
       </ion-thumbnail>
       <h2>{{song.title}}</h2>
       <p>{{song.artist}}</p>
-      <button ion-button clear item-end ><a [href]="song.preview_url">Preview</a></button>
+      <button ion-button clear item-end navPush="PreviewPage" [navParams]="{'song':song}">
+        Preview
+      </button>
     </ion-item>
-    <!-- navPush="PreviewPage" [navParams]="{'preview_url':song.preview_url}" -->
   </ion-list>
 </ion-content>
