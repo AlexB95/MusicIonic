@@ -1,13 +1,19 @@
 <ion-header>
   <ion-navbar>
+
     <ion-title>
       Music List
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openModal()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <ion-list no-border>
     <ion-item *ngFor="let song of songs;">
       <ion-thumbnail item-start>
         <img [src]="song.image_medium">

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Description
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchSong" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" placeholder="Search Song...">
+  </ion-searchbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="searchType" color="primary" (ionChange)="typeChanged($event)">
+      <ion-segment-button value="artist">
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="album">
+        <ion-icon name="albums"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="track">
+          <ion-icon name="musical-notes"></ion-icon>
+        </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-content>

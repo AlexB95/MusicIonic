@@ -8,11 +8,14 @@ import { HomePage } from '../pages/home/home';
 import { MusicService } from '../providers/music/music';
 import { HttpClientModule } from '@angular/common/http';
 import { Media } from '@ionic-native/media';
+import { SearchComponent } from '../components/search/search';
+import { SpotTracksProvider } from '../providers/spot-tracks/spot-tracks';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -22,14 +25,16 @@ import { Media } from '@ionic-native/media';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SearchComponent
   ],
   providers: [
     StatusBar,
     Media,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MusicService
+    MusicService,
+    SpotTracksProvider
   ]
 })
 export class AppModule {}

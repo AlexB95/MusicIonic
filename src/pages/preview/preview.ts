@@ -38,7 +38,9 @@ export class PreviewPage {
   }
 
   ionViewWillLeave() {
-    this.file.release();
+    if(this.file) {
+      this.file.release();
+    }
   }
 
   playSong(url) {
