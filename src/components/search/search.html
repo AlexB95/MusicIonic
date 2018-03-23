@@ -12,7 +12,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchSong" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" placeholder="Search Song...">
+  <ion-searchbar [(ngModel)]="searchSong" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"
+    (ionClear)="onClear($event)" placeholder="Search Song...">
   </ion-searchbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="searchType" color="primary" (ionChange)="typeChanged($event)">
@@ -23,8 +24,25 @@
         <ion-icon name="albums"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="track">
-          <ion-icon name="musical-notes"></ion-icon>
-        </ion-segment-button>
+        <ion-icon name="musical-notes"></ion-icon>
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
+  <ion-list no-border>
+    <ion-item *ngFor="let song of songs;">
+      <ion-thumbnail item-start>
+        <img [src]="song.type == 'track'?(song.album.images[1]? song.album.images[1].url :'http://www.back2gaming.com/wp-content/gallery/tt-esports-shockspin/white_label.gif')
+                                          :(song.images[1]? song.images[1].url :'http://www.back2gaming.com/wp-content/gallery/tt-esports-shockspin/white_label.gif')">
+      </ion-thumbnail>
+      <h2>{{song.name}}</h2>
+      <p>{{song.type == 'artist'? '' :(song.type == 'track'?(song.album.name+' - '+song.artists[0].name) :song.artists[0].name)}}
+      </p>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="elements < total">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

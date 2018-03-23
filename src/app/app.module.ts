@@ -10,11 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { Media } from '@ionic-native/media';
 import { SearchComponent } from '../components/search/search';
 import { SpotTracksProvider } from '../providers/spot-tracks/spot-tracks';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    LoginPage,
     SearchComponent
   ],
   imports: [
@@ -26,6 +28,7 @@ import { SpotTracksProvider } from '../providers/spot-tracks/spot-tracks';
   entryComponents: [
     MyApp,
     HomePage,
+    LoginPage,
     SearchComponent
   ],
   providers: [

@@ -23,7 +23,6 @@ export class PreviewPage {
     private navParams: NavParams,
     private media: Media,
     private platform: Platform) {
-    
   }
 
   file: MediaObject;

@@ -13,32 +13,102 @@ import { SpotTracksProvider } from '../../providers/spot-tracks/spot-tracks';
   templateUrl: 'search.html'
 })
 export class SearchComponent {
-
-  songs:any;
+  songs: any = [];
 
   constructor(
     private viewCtrl: ViewController,
-    private spottrackService: SpotTracksProvider) {  }
-  searchSong:string = '';
-  searchType:string = 'artist';
-  offset:number = 0;
+    private spottrackService: SpotTracksProvider) {
+    }
+  searchSong: string = '';
+  searchType: string = 'artist';
+  offset: number = 0;
+  total: number = 1;
+  elements = 0;
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
   onInput(event) {
-    let query:string = this.searchSong.replace(/ /gm, '+');
-    console.log(query);
-    let token = 'BQADq_jM0zIRYkUWjenhCu9a5_nkiYnzooloV8Q9XQKG02smzHxNnqdTOOt5VukmT0a2hW-b6297bUSUijKf-tmqXJNz2s6sX7CwvTLfsEnCvueKYQdmCp3qR3_gNAqygMuhekUQpHy1-MlWJ0NR-JQ54Mbz1A-PJKk'
-    this.spottrackService.getTracks(token, query, this.offset).subscribe(data => {
-      this.songs = data;
-    });
-    console.log(this.songs);
+    this.offset = 0;
+    this.elements = 0;
+    if (this.searchSong !== '') {
+      let query: string = this.searchSong.replace(/ /gm, '+');
+      if (query !== ' ' && query !== '' && this.searchSong !== '') {
+        this.spottrackService.getTracks(query, this.searchType, this.offset).subscribe((data: any) => {
+          this.elements += 20;
+          this.offset += 20;
+          switch (this.searchType) {
+            case 'artist':
+              this.total = data.artists.total;
+              this.songs = data.artists.items;
+              break;
+            case 'album':
+              this.total = data.albums.total;
+              this.songs = data.albums.items;
+              break;
+            case 'track':
+              this.total = data.tracks.total;
+              this.songs = data.tracks.items;
+              break;
+          }
+        });
+      }
+    } else {
+      this.songs = [];
+    }
   }
 
-  typeChanged(event){
-    console.log(this.searchSong);
-    console.log(this.searchType);
+  typeChanged(event) {
+    this.total = 0;
+    this.elements = 0;
+    this.onInput(event);
   }
 
+  onCancel(event) {
+    this.total = 0;
+    this.elements = 0;
+    this.songs = [];
+  }
+
+  onClear(event) {
+    this.total = 0;
+    this.elements = 0;
+    this.songs = [];
+  }
+
+  doInfinite(event) {
+    setTimeout(() => {
+      let query: string = this.searchSong.replace(/ /gm, '+');
+      if (query !== ' ' && query !== '' && this.searchSong !== '') {
+        this.spottrackService.getTracks(query, this.searchType, this.offset).subscribe((data: any) => {
+          this.elements += 20;
+          this.offset += 20;
+          switch (this.searchType) {
+            case 'artist':
+              this.total = data.artists.total;
+              for (let i: number = 0; i < 20; i++) {
+                if (data.artists.items[i])
+                  this.songs.push(data.artists.items[i]);
+              }
+              break;
+            case 'album':
+              this.total = data.albums.total;
+              for (let i: number = 0; i < 20; i++) {
+                if (data.albums.items[i])
+                  this.songs.push(data.albums.items[i]);
+              }
+              break;
+            case 'track':
+              this.total = data.tracks.total;
+              for (let i: number = 0; i < 20; i++) {
+                if (data.tracks.items[i])
+                  this.songs.push(data.tracks.items[i]);
+              }
+              break;
+          }
+        });
+      }
+      event.complete();
+    }, 500);
+  }
 }
